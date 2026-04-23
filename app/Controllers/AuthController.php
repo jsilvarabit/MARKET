@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 
 class AuthController
@@ -51,8 +52,35 @@ class AuthController
 
         $appName = $this->config['name'] ?? 'JVC DEVWEB Market';
         $user = $_SESSION['user'];
+        $lowStockProducts = Product::lowStock(20);
 
         require dirname(__DIR__) . '/Views/auth/dashboard.php';
+    }
+
+    public function cadastrarUsuario(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?route=login');
+            exit;
+        }
+
+        $appName = $this->config['name'] ?? 'JVC DEVWEB Market';
+        $user = $_SESSION['user'];
+      
+        require dirname(__DIR__) . '/Views/auth/cadastrarUsuario.php';
+    }
+
+    public function gerenciarUsuarios(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?route=login');
+            exit;
+        }
+
+        $appName = $this->config['name'] ?? 'JVC DEVWEB Market';
+        $user = $_SESSION['user'];
+      
+        require dirname(__DIR__) . '/Views/auth/gerenciarUsuarios.php';
     }
 
     public function logout(): void
