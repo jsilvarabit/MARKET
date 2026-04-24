@@ -36,6 +36,40 @@
                 <button type="submit" class="btn btn-login w-100">LOGIN</button>
             </form>
         </section>
+
+        <div id="modalPrimeiroAcesso" class="modal fade primeiro-acesso-modal" tabindex="-1" aria-labelledby="modalPrimeiroAcessoTitulo" aria-hidden="true" data-show-modal="<?= $primeiroAcesso ? '1' : '0' ?>">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <span class="modal-kicker">Primeiro acesso</span>
+                            <h5 class="modal-title" id="modalPrimeiroAcessoTitulo">Definir nova senha</h5>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <?php if ($primeiroAcessoError !== null): ?>
+                            <div class="alert alert-danger login-alert" role="alert">
+                                <?= htmlspecialchars($primeiroAcessoError, ENT_QUOTES, 'UTF-8') ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form id="primeiroAcessoForm" action="index.php?route=confirmarPrimeiroAcesso" method="post">
+                            <div class="mb-3">
+                                <label for="novaSenha" class="form-label">Nova Senha</label>
+                                <input type="password" class="form-control" id="novaSenha" name="nova_senha" autocomplete="new-password" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="confirmarNovaSenha" class="form-label">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" id="confirmarNovaSenha" name="confirmar_nova_senha" autocomplete="new-password" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-login w-100">CONFIRMAR</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

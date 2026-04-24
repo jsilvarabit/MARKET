@@ -12,5 +12,5 @@ INSERT INTO produtos (PDT_DESCRICAO, PDT_PRECO, PDT_QUANTIDADE) VALUES
 ('Detergente Neutro 500ml', 2.39, 44),
 ('Papel Higienico 12 rolos', 18.99, 16);
 
-INSERT INTO usuarios (USU_LOGIN, USU_SENHA, USU_NOME, USU_EMAIL) VALUES
-('joao', 'joao', 'Joao Silva', 'joao.silva@email.com');
+INSERT INTO usuarios (USU_LOGIN, USU_SENHA, USU_NOME, USU_EMAIL, USU_PRIMEIRO_ACESSO) VALUES
+('joao', 'joao', 'Joao Silva', 'joao.silva@email.com', 0);
