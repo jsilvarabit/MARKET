@@ -8,6 +8,21 @@ use App\Core\Database;
 
 class Product
 {
+    public static function create(string $descricao, float $preco, int $quantidade): bool
+    {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare(
+            'INSERT INTO produtos (PDT_DESCRICAO, PDT_PRECO, PDT_QUANTIDADE)
+             VALUES (:descricao, :preco, :quantidade)'
+        );
+
+        return $stmt->execute([
+            ':descricao' => $descricao,
+            ':preco' => $preco,
+            ':quantidade' => $quantidade,
+        ]);
+    }
+
     public static function lowStock(int $limit = 20): array
     {
         $pdo = Database::connect();

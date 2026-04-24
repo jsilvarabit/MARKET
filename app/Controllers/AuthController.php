@@ -110,6 +110,60 @@ class AuthController
         require dirname(__DIR__) . '/Views/auth/dashboard.php';
     }
 
+    public function cadastrarProduto(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?route=login');
+            exit;
+        }
+
+        $appName = $this->config['name'] ?? 'JVC DEVWEB Market';
+        $user = $_SESSION['user'];
+        $produtoFlash = $_SESSION['produto_flash'] ?? null;
+        unset($_SESSION['produto_flash']);
+
+        $descricao = '';
+        $preco = '';
+        $quantidade = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $descricao = trim($_POST['descricao'] ?? '');
+            $precoInput = str_replace(',', '.', trim($_POST['preco'] ?? ''));
+            $quantidadeInput = trim($_POST['quantidade'] ?? '');
+            $precoValor = is_numeric($precoInput) ? (float) $precoInput : -1;
+            $quantidadeValor = filter_var($quantidadeInput, FILTER_VALIDATE_INT);
+
+            $preco = trim($_POST['preco'] ?? '');
+            $quantidade = $quantidadeInput;
+
+            if ($descricao === '' || $precoValor < 0 || $quantidadeValor === false || $quantidadeValor < 0) {
+                $produtoFlash = [
+                    'type' => 'danger',
+                    'message' => 'Informe descricao, preco e quantidade validos para cadastrar o produto.',
+                ];
+            } else {
+                try {
+                    Product::create($descricao, $precoValor, (int) $quantidadeValor);
+
+                    $_SESSION['produto_flash'] = [
+                        'type' => 'success',
+                        'message' => 'Produto cadastrado com sucesso.',
+                    ];
+
+                    header('Location: index.php?route=cadastrarProduto');
+                    exit;
+                } catch (\Throwable) {
+                    $produtoFlash = [
+                        'type' => 'danger',
+                        'message' => 'Nao foi possivel cadastrar o produto. Tente novamente.',
+                    ];
+                }
+            }
+        }
+
+        require dirname(__DIR__) . '/Views/auth/cadastrarProduto.php';
+    }
+
     public function gerenciarUsuarios(): void
     {
         if (!isset($_SESSION['user'])) {

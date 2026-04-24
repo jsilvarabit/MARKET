@@ -26,6 +26,7 @@
                     </button>
                     <div class="collapse" id="produtosMenu">
                         <a class="page-nav-child active" href="index.php?route=dashboard">Acompanhar Estoque</a>
+                        <a class="page-nav-child" href="index.php?route=cadastrarProduto">Cadastrar produto</a>
                     </div>
                 </div>
 

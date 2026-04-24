@@ -42,6 +42,11 @@ switch ($route) {
         $controller->dashboard();
         break;
 
+    case 'cadastrarProduto':
+        $controller = new App\Controllers\AuthController($config);
+        $controller->cadastrarProduto();
+        break;
+
     case 'cadastrarUsuario':
         $controller = new App\Controllers\AuthController($config);
         $controller->cadastrarUsuario();
